@@ -55,7 +55,7 @@ You can uncomment stuff like "history = 18000" to save history for 5h (require a
 If you find this helpful, any small nano donation is greatly appreciated!
 <figure>
 	<img id="qrImage" src="https://raw.githubusercontent.com/Joohansson/nanolinks/master/src/qr_new.png" alt="Nano Donation" />
-	<br><figcaption class="subtext">xrb_1gur37mt5cawjg5844bmpg8upo4hbgnbbuwcerdobqoeny4ewoqshowfakfo</figcaption>
+	<figcaption class="subtext">xrb_1gur37mt5cawjg5844bmpg8upo4hbgnbbuwcerdobqoeny4ewoqshowfakfo</figcaption>
 </figure>
 
 ## Nano Related
