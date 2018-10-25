@@ -30,20 +30,24 @@ Nano Node Graphics is a simplified dashboard for your nano node based on netdata
 18. If charts a working load the simplified dashboard: http://netdataURL/nano.html
 
 ## Configuration
-Apart from step 11 above, the plugin can also be configured. `sudo nano /usr/libexec/netdata/python.d/nanonode.chart.py`
+Apart from step 11 above, **the plugin** can also be configured. `sudo nano /usr/libexec/netdata/python.d/nanonode.chart.py`
 
-You can change how often it updates the charts with "update_every = 5". Change where in the advanced dashboard it show up with "priority = 1000" or change what charts that should be visible with "ORDER".
+You can change how often it updates the charts with "update_every = 5". Change where in the advanced dashboard it show up with "priority = 1000" or change what charts that should be visible with "ORDER". [More Info](https://github.com/netdata/netdata/tree/master/collectors/plugins.d)
 
-After configuring you need to restart netdata: `sudo systemctl restart netdata.service`
+After configuring plugin you need to restart netdata: `sudo systemctl restart netdata.service`
 
-The dashboard can also be configured to your own liking: `sudo nano /usr/share/netdata/web/nano.html`
-For example changing the title, description theme, and url to your dashboard.js. This dashboard can be run on any web server or even locally from a pc folder. Don't need to be on the same machine as netdata. Just link to your dashboard.js and it should work.
+**The dashboard** can also be configured to your own liking: `sudo nano /usr/share/netdata/web/nano.html`
+For example changing the title, description theme, and url to your dashboard.js. This dashboard can be run on any web server or even locally from a pc folder. Don't need to be on the same machine as netdata. Just link to your dashboard.js and it should work. [More Info](https://github.com/netdata/netdata/wiki/Custom-Dashboards)
+
+Finally, **the netdata itself** can be configured: `sudo nano /etc/netdata/netdata.conf`
+
+You can uncomment stuff like "history = 18000" to save history for 5h (require a bit more ram), "update every = 5" to slow down the chart updates to once every 5sec, etc. [More Info](https://github.com/netdata/netdata/wiki/Configuration)
 
 ## Update
 * Go to the NanoNodeGraphics dir and pull from github or make a new clone: `git pull`
 * Redo step 4-10 and 16
 
-## Demo site (Odroid C2 single board computer). PLEASE DON'T ABUSE, I WILL HAVE TO DISABLE THESE URLs.
+## Demo site (Odroid C2). PLEASE DON'T ABUSE, I WILL HAVE TO DISABLE THESE URLs.
 * [Advanced dashboard](http://node.nanolinks.info:8080)
 * [Simple dashboard](http://node.nanolinks.info:8080/nano.html)
 
