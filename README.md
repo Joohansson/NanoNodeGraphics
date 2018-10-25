@@ -54,3 +54,7 @@ If you find this helpful, any small nano donation is greatly appreciated!
 
 ## Nano Related
 Check out other awesome nano projects: [NanoLinks](https://nanolinks.info)
+
+## TODO
+* I have yet to figure out how to show decimals on the dashboard from the plugin. Any help needed!
+* Create a script for easier install
