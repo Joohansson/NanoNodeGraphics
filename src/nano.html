@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<html lang="en">
+<head>
+	<title>Nano Node Graphics - NanoLinks</title>
+	<meta name="application-name" content="netdata">
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:url" content="http://my-netdata.io/"/>
+	<meta property="og:type" content="website"/>
+	<meta property="og:site_name" content="netdata"/>
+	<meta property="og:title" content="Nano Node Graphics - Realtime Monitor"/>
+	<meta property="og:description" content="Nano Node Graphics is a simplified dashboard for your nano node based on netdata application and nano node monitor api." />
+	
+	<link rel="stylesheet" type="text/css" href="nano.css">
+</head>
+<script>
+// this section has to appear before loading dashboard.js
+
+// Select a theme.
+// uncomment on of the two themes:
+
+//var netdataTheme = 'default'; // this is white
+var netdataTheme = 'slate'; // this is dark
+
+
+// Set the default netdata server.
+// on charts without a 'data-host', this one will be used.
+// the default is the server that dashboard.js is downloaded from.
+
+// var netdataServer = 'http://my.server:19999/';
+</script>
+
+<!--
+    Load dashboard.js
+
+    to host this HTML file on your web server,
+    you have to load dashboard.js from the netdata server.
+
+    So, pick one the two below
+    If you pick the first, set the server name/IP.
+
+    The second assumes you host this file on /usr/share/netdata/web
+    and that you have chown it to be owned by netdata:netdata
+-->
+<!--<script type="text/javascript" src="http://remotenode.nano:19999/dashboard.js"></script>-->
+<script type="text/javascript" src="dashboard.js?v20181025-1"></script>
+
+<script>
+// Set options for TV operation
+// This has to be done, after dashboard.js is loaded
+
+// destroy charts not shown (lowers memory on the browser)
+NETDATA.options.current.destroy_on_hide = true;
+
+// set this to false, to always show all dimensions
+NETDATA.options.current.eliminate_zero_dimensions = true;
+
+// lower the pressure on this browser
+NETDATA.options.current.concurrent_refreshes = false;
+
+// if the tv browser is too slow (a pi?)
+// set this to false
+NETDATA.options.current.parallel_refresher = true;
+
+// always update the charts, even if focus is lost
+NETDATA.options.current.stop_updates_when_focus_is_lost = false;
+
+// Since you may render charts from many servers and any of them may
+// become offline for some time, the charts will break.
+// This will reload the page every RELOAD_EVERY minutes
+
+var RELOAD_EVERY = 5;
+setTimeout(function(){
+    location.reload();
+}, RELOAD_EVERY * 60 * 1000);
+
+</script>
+<body>
+
+<div class="div-main">
+	<h1>Nano Node Graphics</h1>
+	
+	<div class="div-system">
+		<div class="div-system-group left">
+			<div data-netdata="system.io"
+					data-title="Disk Read"
+					data-dimensions="in"
+					data-chart-library="easypiechart"
+					data-common-units="system.io.mainhead"
+					data-width="22%"
+					data-before="0"
+					data-after="-300"
+					data-points="300"
+					data-colors="#7ad96e"
+			></div>
+			<div data-netdata="system.io"
+					data-title="Disk Write"
+					data-dimensions="out"
+					data-chart-library="easypiechart"
+					data-common-units="system.io.mainhead"
+					data-width="22%"
+					data-before="0"
+					data-after="-300"
+					data-points="300"
+					data-colors="#e87474"
+			></div>
+			<div data-netdata="system.net"
+					data-title="Net Inbound"
+					data-dimensions="received"
+					data-chart-library="easypiechart"
+					data-common-units="system.net.mainhead"
+					data-width="22%"
+					data-before="0"
+					data-after="-300"
+					data-points="300"
+					data-colors="#7ad96e"
+			></div>
+			<div data-netdata="system.net"
+					data-title="Net Outbound"
+					data-dimensions="sent"
+					data-chart-library="easypiechart"
+					data-common-units="system.net.mainhead"
+					data-width="22%"
+					data-before="0"
+					data-after="-300"
+					data-points="300"
+					data-colors="#e87474"
+			></div>
+		</div>
+		<div class="div-system-group-c left">
+			<div data-netdata="system.cpu"
+					data-title="CPU"
+					data-gauge-max-value="100"
+					data-decimal-digits="1"
+					data-units="%"
+					data-chart-library="gauge"
+					data-width="48%"
+					data-before="0"
+					data-after="-300"
+					data-points="300"
+					data-colors="#5dabe7"
+			></div>
+			<div data-netdata="system.ram"
+					data-title="Used RAM"
+					data-gauge-max-value="100"
+					data-dimensions="used|buffers|active|wired"
+          data-append-options="percentage"
+					data-decimal-digits="1"
+					data-units="%"
+					data-chart-library="gauge"
+					data-width="48%"
+					data-before="0"
+					data-after="-300"
+					data-points="300"
+					data-colors="#e874ce"
+			></div>
+		</div>
+		<div class="div-system-group left">
+        <div data-netdata="nanonode_local.block_sync"
+          data-title="Block Sync"
+          data-easypiechart-max-value="100"
+          data-decimal-digits="2"
+          data-units="%"
+          data-chart-library="easypiechart"
+          data-width="22%"
+          data-after="-300"
+          data-points="300"
+          data-colors="#747de8"
+        ></div>
+        <div data-netdata="nanonode_local.uptime"
+          data-title="Node Uptime"
+          data-easypiechart-max-value="100"
+          data-decimal-digits="2"
+          data-units="%"
+          data-chart-library="easypiechart"
+          data-width="22%"
+          data-after="-300"
+          data-points="300"
+          data-colors="#74e4e8"
+          ></div>
+        <div data-netdata="nanonode_local.tps"
+          data-title="Node TPS"
+          data-decimal-digits="1"
+          data-units="tx/s"
+          data-chart-library="easypiechart"
+          data-width="22%"
+          data-after="-300"
+          data-points="300"
+          data-colors="#74e4e8"
+          ></div>
+		</div>
+	</div>
+	
+	<div class="div-float left">
+		<h2>Hardware Stats</h2>
+		<div class="div-graph">
+			<div class="div-header">
+				<b>CPU</b>
+			</div>
+			<div class="div-graph-data">
+				<div data-netdata="system.cpu"
+					data-title="CPU"
+					data-chart-library="dygraph"
+					data-width="90%"
+					data-height="100%"
+					data-after="-600"
+					data-dygraph-valuerange="[0, 100]"
+				></div>
+			</div>
+		</div>
+		
+		<div class="div-graph">
+			<div class="div-header">
+				<b>Memory</b>
+			</div>
+			<div class="div-graph-data">
+        <div data-netdata="mem.available"
+          data-title="Mem Available"
+          data-chart-library="dygraph"
+          data-common-max="mem.available"
+          data-common-min="mem.available"
+          data-width="90%"
+          data-height="100%"
+          data-after="-600"
+          data-colors="#e874ce"
+        ></div>
+			</div>
+			<div class="div-graph-data">
+				<div data-netdata="mem.committed"
+					data-title="Mem Committed"
+					data-chart-library="dygraph"
+					data-common-max="mem.committed"
+					data-common-min="mem.committed"
+					data-width="90%"
+					data-height="100%"
+					data-after="-600"
+					data-colors="#e874ce"
+				></div>
+			</div>
+		</div>
+		
+		<div class="div-graph">
+			<div class="div-header">
+				<b>Disk I/O</b>
+			</div>
+			<div class="div-graph-data">
+				<div data-netdata="system.io"
+					data-title="I/O"
+					data-common-max="io"
+					data-common-min="io"
+					data-chart-library="dygraph"
+					data-width="90%"
+					data-height="100%"
+					data-after="-600"
+					data-colors="#7ad96e #e87474"
+				></div>
+			</div>
+		</div>
+		
+		<div class="div-graph">
+			<div class="div-header">
+				<b>Network</b>
+			</div>
+				<div data-netdata="system.net"
+					data-title="Network traffic"
+					data-common-max="traffic"
+					data-common-min="traffic"
+					data-chart-library="dygraph"
+					data-width="90%"
+					data-height="100%"
+					data-after="-600"
+					data-colors="#7ad96e #e87474"
+				></div>
+				</div>
+		</div>
+	</div>
+	
+	<div class="div-float right">
+		<h2>Node Stats</h2>
+		<div class="div-graph">
+			<div class="div-header">
+				<b>Block Count</b>
+			</div>
+			<div class="div-graph-data">
+				<div data-netdata="nanonode_local.block_count"
+					data-title="Block Count"
+					data-common-max="nanonode_local.block_count"
+					data-common-min="nanonode_local.block_count"
+					data-chart-library="dygraph"
+					data-width="90%"
+					data-height="100%"
+					data-after="-600"
+				></div>
+			</div>
+		</div>
+		
+		<div class="div-graph">
+			<div class="div-header">
+				<b>Unchecked Blocks</b>
+			</div>
+			<div class="div-graph-data">
+				<div data-netdata="nanonode_local.unchecked"
+					data-title="Unchecked Blocks"
+					data-common-max="nanonode_local.unchecked"
+					data-common-min="nanonode_local.unchecked"
+					data-chart-library="dygraph"
+					data-width="90%"
+					data-height="100%"
+					data-after="-600"
+				></div>
+			</div>
+		</div>
+		
+		<div class="div-graph">
+			<div class="div-header">
+				<b>Connected Peers</b>
+			</div>
+			<div class="div-graph-data">
+				<div data-netdata="nanonode_local.peers"
+					data-title="Peers"
+					data-common-max="nanonode_local.peers"
+					data-common-min="nanonode_local.peers"
+					data-chart-library="dygraph"
+					data-width="90%"
+					data-height="100%"
+					data-after="-600"
+					data-colors="#7ad96e"
+				></div>
+			</div>
+		</div>
+      <div class="div-graph">
+        <div class="div-header">
+                <b>Node TPS</b>
+        </div>
+        <div class="div-graph-data">
+          <div data-netdata="nanonode_local.tps"
+                  data-title="TPS"
+                  data-common-max="nanonode_local.tps"
+                  data-common-min="nanonode_local.tps"
+                  data-chart-library="dygraph"
+                  data-width="90%"
+                  data-height="100%"
+                  data-after="-600"
+                  data-colors="#7ad96e"
+          ></div>
+        </div>
+      </div>
+	</div>
+</div>
+</body>
+</html>
