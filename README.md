@@ -1,6 +1,9 @@
 # NanoNodeGraphics
 Nano Node Graphics is a simplified dashboard for your nano node based on netdata application and nano node monitor api.
 
+* [Dark Theme Preview](https://i.imgur.com/2k5Qska.jpg)
+* [Light Theme Preview](https://i.imgur.com/TPUdbLd.jpg)
+
 ## Requirements
 * Netdata application [Source](https://github.com/netdata/netdata)
 * Nano node [Source](https://github.com/nanocurrency/raiblocks/releases)
