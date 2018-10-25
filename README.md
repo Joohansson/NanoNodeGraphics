@@ -34,7 +34,7 @@ You can change how often it updates the charts with "update_every = 5". Change w
 After configuring you need to restart netdata: `sudo systemctl restart netdata.service`
 
 The dashboard can also be configured to your own liking: `sudo nano /usr/share/netdata/web/nano.html`
-For example changing the title, description and url to your dashboard.js. This dashboard can be run on any web server or even locally from a pc folder. Don't need to be on the same machine as netdata. Just link to your dashboard.js and it should work.
+For example changing the title, description theme, and url to your dashboard.js. This dashboard can be run on any web server or even locally from a pc folder. Don't need to be on the same machine as netdata. Just link to your dashboard.js and it should work.
 
 ## Update
 * Go to the NanoNodeGraphics dir and pull from github or make a new clone: `git pull`
