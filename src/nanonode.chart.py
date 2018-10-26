@@ -108,16 +108,16 @@ class Service(UrlService):
         r = dict()
 
         #Extract data from json based on default node monitor keys
-        for new_key, orig_key, stat in apiKeys:
+        for new_key, orig_key, keytype in apiKeys:
             try:
-                r[new_key] = parsed[orig_key]
+                r[new_key] = keytype(parsed[orig_key])
             except Exception:
                 continue
 
         #Extract data from json based on NinjaKeys
-        for new_key, orig_key, stat in apiKeysNinja:
+        for new_key, orig_key, keytype in apiKeysNinja:
             try:
-                r[new_key] = parsed['nodeNinja'][orig_key]
+                r[new_key] = keytype(parsed['nodeNinja'][orig_key])
             except Exception:
                 continue
 
