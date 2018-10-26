@@ -14,7 +14,7 @@ Nano Node Graphics is a simplified dashboard for your nano node based on netdata
 2. Make sure it's running. Should be accessible at http://localhost:19999
 3. Clone this repo into your home directory: `git clone https://github.com/Joohansson/NanoNodeGraphics`
 4. Go to source files: `cd NanoNodeGraphics/src/`
-5. **If standard netdata folders use autocopy.sh and continue at 15 or do manually 6-14:** `sudo chmod +x autocopy.sh && ./autocopy.sh`
+5. **If standard netdata folders use autocopy.sh and continue at 15 or do manually 6-14:** `sudo chmod +x autocopy.sh && sudo ./autocopy.sh`
 6. Copy source file to netdata default plugin dir: `sudo cp nanonode.chart.py /usr/libexec/netdata/python.d/`
 7. Copy config file to netdata default config dir: `sudo cp nanonode.conf /usr/lib/netdata/conf.d/python.d`
 8. Copy simplified dashboard html to web dir: `sudo cp nano.html /usr/share/netdata/web`
