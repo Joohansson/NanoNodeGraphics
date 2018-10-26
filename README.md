@@ -14,20 +14,21 @@ Nano Node Graphics is a simplified dashboard for your nano node based on netdata
 2. Make sure it's running. Should be accessible at http://localhost:19999
 3. Clone this repo into your home directory: `git clone https://github.com/Joohansson/NanoNodeGraphics`
 4. Go to source files: `cd NanoNodeGraphics/src/`
-5. Copy source file to netdata default plugin dir: `sudo cp nanonode.chart.py /usr/libexec/netdata/python.d/`
-6. Copy config file to netdata default config dir: `sudo cp nanonode.conf /usr/lib/netdata/conf.d/python.d`
-7. Copy simplified dashboard html to web dir: `sudo cp nano.html /usr/share/netdata/web`
-8. Set read access for netdata user: `sudo chown -R netdata:netdata /usr/share/netdata/web/nano.html`
-9. Copy simplified dashboard style to web dir: `sudo cp nano.css /usr/share/netdata/web`
-10. Set read access for netdata user: `sudo chown -R netdata:netdata /usr/share/netdata/web/nano.html`
-11. **Optionally configure to match plugin with your nano installation. Do it the right way or continue at step 16:**
-12. Go to netdata: `cd /etc/netdata/`
-13. Copy default config to modified config: `sudo ./edit-config python.d/nanonode.conf` (save vim file with ctrl+c, :x, enter)
-14. Edit file with nano editor `sudo nano python.d/nanonode.conf`
-15. Go to bottom and check if the url to your nano node monitor json is correct. Loading it in browser should show the stats. You can add as many nano node monitors as you like, local or remote. Save with ctrl+x.
-16. Restart netdata: `sudo systemctl restart netdata.service`
-17. Open a browser and load your netdata dashboard. The nanonode local and charts should show up after 10-60sec after service restart.
-18. If charts a working load the simplified dashboard: http://netdataURL/nano.html
+5. **If standard netdata folders use autocopy.sh and continue at 15 or do manually 6-14:** `sudo chmod +x autocopy.sh && ./autocopy.sh`
+6. Copy source file to netdata default plugin dir: `sudo cp nanonode.chart.py /usr/libexec/netdata/python.d/`
+7. Copy config file to netdata default config dir: `sudo cp nanonode.conf /usr/lib/netdata/conf.d/python.d`
+8. Copy simplified dashboard html to web dir: `sudo cp nano.html /usr/share/netdata/web`
+9. Set read access for netdata user: `sudo chown -R netdata:netdata /usr/share/netdata/web/nano.html`
+10. Copy simplified dashboard style to web dir: `sudo cp nano.css /usr/share/netdata/web`
+11. Set read access for netdata user: `sudo chown -R netdata:netdata /usr/share/netdata/web/nano.html`
+12. **Configure in order to match plugin with your nano installation:**
+13. Go to netdata: `cd /etc/netdata/`
+14. Copy default config to modified config: `sudo ./edit-config python.d/nanonode.conf` (save vim file with ctrl+c, :x, enter)
+15. Edit file with nano editor `sudo /etc/netdata/nano python.d/nanonode.conf`
+16. Go to bottom and check if the url to your nano node monitor json is correct. Loading it in browser should show the stats. You can add as many nano node monitors as you like, local or remote. Save with ctrl+x.
+17. Restart netdata: `sudo systemctl restart netdata.service`
+18. Open a browser and load your netdata dashboard. The nanonode local and charts should show up after 10-60sec after service restart.
+19. If charts a working load the simplified dashboard: http://netdataURL/nano.html
 
 ## Configuration
 Apart from step 11 above, **the plugin** can also be configured. `sudo nano /usr/libexec/netdata/python.d/nanonode.chart.py`
@@ -63,4 +64,3 @@ Check out other awesome nano projects: [NanoLinks](https://nanolinks.info)
 
 ## TODO
 * I have yet to figure out how to show decimals on the dashboard from the plugin. Any help needed!
-* Create a script for easier install
