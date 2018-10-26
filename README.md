@@ -46,7 +46,7 @@ You can uncomment stuff like "history = 18000" to save history for 5h (require a
 
 ## Update
 1. Go to the NanoNodeGraphics dir and pull from github or make a new clone: `git pull`
-2. Update files (excluding user config of plugin): `sudo chmod +x update.sh && sudo ./update.sh`
+2. Update files (excluding user config of plugin): `cd src && sudo chmod +x update.sh && sudo ./update.sh`
 3. Restart netdata: `sudo systemctl restart netdata.service`
 
 ## Demo site (Odroid C2). PLEASE DON'T ABUSE, I WILL HAVE TO DISABLE THESE URLs.
