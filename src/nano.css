@@ -67,6 +67,18 @@ h2 {
 	margin: 0 auto;
 }
 
+.div-footer {
+	margin-top: 20px;
+	margin-bottom: 10px;
+	width:100%;
+	text-align:center;
+	display: inline-block;
+}
+
+.footer-text {
+	font-size: 12px;
+}
+
 @media only screen and (max-width: 1000px) {
 	.div-float {
 		width: 100%;
@@ -83,5 +95,8 @@ h2 {
 	.left, .right {
 		margin: 0 auto;
 		float: none;
+	}
+	.footer-text {
+		font-size: 8px;
 	}
 }
