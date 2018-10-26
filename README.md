@@ -45,8 +45,9 @@ Finally, **the netdata itself** can be configured: `sudo nano /etc/netdata/netda
 You can uncomment stuff like "history = 18000" to save history for 5h (require a bit more ram), "update every = 5" to slow down the chart updates to once every 5sec, etc. [More Info](https://github.com/netdata/netdata/wiki/Configuration)
 
 ## Update
-* Go to the NanoNodeGraphics dir and pull from github or make a new clone: `git pull`
-* Redo step 4-10 and 16
+1. Go to the NanoNodeGraphics dir and pull from github or make a new clone: `git pull`
+2. Update files (excluding user config of plugin): `sudo chmod +x update.sh && sudo ./update.sh`
+3. Restart netdata: `sudo systemctl restart netdata.service`
 
 ## Demo site (Odroid C2). PLEASE DON'T ABUSE, I WILL HAVE TO DISABLE THESE URLs.
 * [Advanced dashboard](http://node.nanolinks.info:8080)
