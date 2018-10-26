@@ -10,4 +10,4 @@ echo "Copy dashboard style"
 cp nano.css /usr/share/netdata/web
 echo "Set netdata read access for dashboard and style"
 chown -R netdata:netdata /usr/share/netdata/web/nano.html
-chown -R netdata:netdata /usr/share/netdata/web/nano.html
+chown -R netdata:netdata /usr/share/netdata/web/nano.css
