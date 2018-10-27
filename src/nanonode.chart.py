@@ -2,6 +2,7 @@
 # Description: NanoNode netdata python.d module
 # Author: Joohansson
 # SPDX-License-Identifier: GPL-3.0-or-later
+# Updated: 2018-10-27
 
 from bases.FrameworkServices.UrlService import UrlService
 import json
@@ -22,7 +23,7 @@ retries = 60
 
 # charts order (can be overridden if you want less charts, or different order)
 
-#ORDER = ['block_count', 'unchecked', 'peers', 'tps', 'weight', 'delegators', 'block_sync', 'account_balance', 'uptime']
+#ORDER = ['block_count', 'unchecked', 'peers', 'tps', 'tps_50', 'weight', 'delegators', 'block_sync', 'account_balance', 'uptime']
 ORDER = ['block_count', 'unchecked', 'peers', 'tps', 'tps_50', 'block_sync', 'uptime']
 
 CHARTS = {
@@ -47,7 +48,7 @@ CHARTS = {
     'weight': {
         'options': [None, 'Voting Weight', 'nano', 'Weight','nano.weight', 'line'],
         'lines': [
-            ["weight", None, 'absolute']
+            ["weight", None, 'absolute', 1, 1000]
         ]
     },
     'delegators': {
@@ -59,31 +60,31 @@ CHARTS = {
     'block_sync': {
         'options': [None, 'Block Sync', '%', 'Sync','nano.sync', 'line'],
         'lines': [
-            ["block_sync", None, 'absolute']
+            ["block_sync", None, 'absolute', 1, 1000]
         ]
     },
     'account_balance': {
         'options': [None, 'Account Balance', 'nano', 'Balance','nano.balance', 'line'],
         'lines': [
-            ["account_balance", None, 'absolute']
+            ["account_balance", None, 'absolute', 1, 1000]
         ]
     },
     'uptime': {
         'options': [None, 'Node Uptime', '%', 'Uptime','nano.uptime', 'line'],
         'lines': [
-            ["uptime", None, 'absolute']
+            ["uptime", None, 'absolute', 1, 1000]
         ]
     },
     'tps': {
         'options': [None, 'Node TPS', 'tx/s', 'TPS','nano.tps', 'line'],
         'lines': [
-            ["tps", None, 'absolute',1,1000]
+            ["tps", None, 'absolute',1 , 1000]
         ]
     },
     'tps_50': {
         'options': [None, 'Node TPS Ave', 'tx/s', 'TPS Ave 5 min','nano.tps50', 'line'],
         'lines': [
-            ["tps_50", None, 'absolute',1,1000]
+            ["tps_50", None, 'absolute', 1, 1000]
         ]
     }
 }
@@ -110,22 +111,22 @@ class Service(UrlService):
             return None
 
         #Keys to read from api data with the first entry is keys used by the charts
-        apiKeys = [('blocks','currentBlock',int),('unchecked','uncheckedBlocks',int),('peers','numPeers',int),
-            ('weight','votingWeight',float),('block_sync','blockSync',float),('account_balance','accBalanceMnano',float)]
-        apiKeysNinja = [('delegators','delegators',int),('uptime','uptime',float)]
+        apiKeys = [('blocks','currentBlock',int,1),('unchecked','uncheckedBlocks',int,1),('peers','numPeers',int,1),
+            ('weight','votingWeight',float,1000),('block_sync','blockSync',float,1000),('account_balance','accBalanceMnano',float,1000)]
+        apiKeysNinja = [('delegators','delegators',int,1),('uptime','uptime',float,1000)]
         r = dict()
 
         #Extract data from json based on default node monitor keys
-        for new_key, orig_key, keytype in apiKeys:
+        for new_key, orig_key, keytype, mul in apiKeys:
             try:
-                r[new_key] = keytype(parsed[orig_key])
+                r[new_key] = keytype(mul * parsed[orig_key])
             except Exception:
                 continue
 
         #Extract data from json based on NinjaKeys
-        for new_key, orig_key, keytype in apiKeysNinja:
+        for new_key, orig_key, keytype, mul in apiKeysNinja:
             try:
-                r[new_key] = keytype(parsed['nodeNinja'][orig_key])
+                r[new_key] = keytype(mul * parsed['nodeNinja'][orig_key])
             except Exception:
                 continue
 
