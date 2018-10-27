@@ -5,7 +5,7 @@ Nano Node Graphics is a simplified dashboard for your nano node based on netdata
 * [Light Theme Preview](https://i.imgur.com/TPUdbLd.jpg)
 
 ## Current Version
-Current version is 1.0. Check your nano.html if this one is newer, continue with **Update procedure** below.
+Current version is 1.12. Check your nano.html if this one is newer, continue with **Update procedure** below.
 
 ## Requirements
 * Netdata application [Source](https://github.com/netdata/netdata)
