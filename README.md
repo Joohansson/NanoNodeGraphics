@@ -54,7 +54,7 @@ For example changing the title, description theme, and url to your dashboard.js.
 ### -Netdata
 Finally, **the netdata itself** can be configured: `sudo nano /etc/netdata/netdata.conf`
 
-You can uncomment stuff like "history = 18000" to save history for 5h (requires a bit more ram, approx 60MB), "update every = 5" to slow down the chart updates to once every 5sec, etc. [More Info](https://github.com/netdata/netdata/wiki/Configuration)
+You can uncomment stuff like "history = 18000" to save history for 5h (requires a bit more ram, approx 60MB), "update every = 5" to slow down the chart updates to once every 5sec, change default port from 19999, etc. [More Info](https://github.com/netdata/netdata/wiki/Configuration)
 
 **You probably want netdata to start at boot** [More info](https://github.com/netdata/netdata/wiki/Installation):
 - stop netdata
