@@ -5,9 +5,10 @@
 
 from bases.FrameworkServices.UrlService import UrlService
 import json
+from collections import deque #for array shifting
 
 # default module values (can be overridden per job in `config`)
-update_every = 5 #update chart every x second
+update_every = 6 #update chart every 6 second (changing this will change TPS Ave interval to interval*50 sec)
 priority = 1000 #where it will appear on the main stat page and menu (60000 will place it last)
 retries = 60
 
@@ -22,7 +23,7 @@ retries = 60
 # charts order (can be overridden if you want less charts, or different order)
 
 #ORDER = ['block_count', 'unchecked', 'peers', 'tps', 'weight', 'delegators', 'block_sync', 'account_balance', 'uptime']
-ORDER = ['block_count', 'unchecked', 'peers', 'tps', 'block_sync', 'uptime']
+ORDER = ['block_count', 'unchecked', 'peers', 'tps', 'tps_50', 'block_sync', 'uptime']
 
 CHARTS = {
     'block_count': {
@@ -76,7 +77,13 @@ CHARTS = {
     'tps': {
         'options': [None, 'Node TPS', 'tx/s', 'TPS','nano.tps', 'line'],
         'lines': [
-            ["tps", None, 'absolute']
+            ["tps", None, 'absolute',1,1000]
+        ]
+    },
+    'tps_50': {
+        'options': [None, 'Node TPS Ave', 'tx/s', 'TPS Ave 5 min','nano.tps50', 'line'],
+        'lines': [
+            ["tps_50", None, 'absolute',1,1000]
         ]
     }
 }
@@ -87,7 +94,7 @@ class Service(UrlService):
         self.url = self.configuration.get('url', 'http://localhost/api.php')
         self.order = ORDER
         self.definitions = CHARTS
-        self.blocks_old = 0
+        self.blocks_old = deque([0]*50) #block history last 50 reads, init with 50 zeroes
 
     def _get_data(self):
         """
@@ -103,7 +110,8 @@ class Service(UrlService):
             return None
 
         #Keys to read from api data with the first entry is keys used by the charts
-        apiKeys = [('blocks','currentBlock',int),('unchecked','uncheckedBlocks',int),('peers','numPeers',int),('weight','votingWeight',float),('block_sync','blockSync',float),('account_balance','accBalanceMnano',float)]
+        apiKeys = [('blocks','currentBlock',int),('unchecked','uncheckedBlocks',int),('peers','numPeers',int),
+            ('weight','votingWeight',float),('block_sync','blockSync',float),('account_balance','accBalanceMnano',float)]
         apiKeysNinja = [('delegators','delegators',int),('uptime','uptime',float)]
         r = dict()
 
@@ -122,7 +130,12 @@ class Service(UrlService):
                 continue
 
         #Calculate tps based on previous block read
-        r['tps'] = (r['blocks']-self.blocks_old) / update_every
-        self.blocks_old = r['blocks'] #update for next iteration
+        if (self.blocks_old[0] == 0):
+            self.blocks_old = deque([r['blocks']]*50) #Initialize array with block count first time to not get large tps before running a certain amount of time
+        r['tps'] = 1000*(r['blocks']-self.blocks_old[-1]) / update_every #use previous iteration (multiply 1000 and divide with 1000 in chart to get decimals)
+        r['tps_50'] = 1000*(r['blocks']-self.blocks_old[0]) / (update_every*len(self.blocks_old)) #use 10 iterations back
+
+        self.blocks_old.append(r['blocks']) #update latest for future iteration
+        self.blocks_old.popleft()
 
         return r or None
