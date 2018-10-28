@@ -95,7 +95,8 @@ class Service(UrlService):
         self.url = self.configuration.get('url', 'http://localhost/api.php')
         self.order = ORDER
         self.definitions = CHARTS
-        self.blocks_old = deque([0]*50) #block history last 50 reads, init with 50 zeroes
+        self.blocks_old = 0 #block count previous poll
+        self.tps_old = deque([0]*50) #tps history last 50 polls, init with 50 zeroes
 
     def _get_data(self):
         """
@@ -131,12 +132,17 @@ class Service(UrlService):
                 continue
 
         #Calculate tps based on previous block read
-        if (self.blocks_old[0] == 0):
-            self.blocks_old = deque([r['blocks']]*50) #Initialize array with block count first time to not get large tps before running a certain amount of time
-        r['tps'] = 1000*(r['blocks']-self.blocks_old[-1]) / update_every #use previous iteration (multiply 1000 and divide with 1000 in chart to get decimals)
-        r['tps_50'] = 1000*(r['blocks']-self.blocks_old[0]) / (update_every*len(self.blocks_old)) #use 10 iterations back
+        if (self.blocks_old == 0):
+            self.blocks_old = r['blocks'] #Initialize with block count first time to not get large tps before running one iteration
+        r['tps'] = 1000 * (r['blocks']-self.blocks_old) / update_every #use previous iteration (multiply 1000 and divide with 1000 in chart to get decimals)
+        self.blocks_old = r['tps'] #update for next iteration
+        self.tps_old.append(r['tps'])
+        self.tps_old.popleft()
 
-        self.blocks_old.append(r['blocks']) #update latest for future iteration
-        self.blocks_old.popleft()
+        #Calculate tps past 50 iterations based on average tps
+        sum = 0
+        for tps in self.tps_old:
+            sum = sum + tps
+        r['tps_50'] = sum / len(self.tps_old) 
 
         return r or None
