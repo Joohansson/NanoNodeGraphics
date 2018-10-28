@@ -135,7 +135,7 @@ class Service(UrlService):
         if (self.blocks_old == 0):
             self.blocks_old = r['blocks'] #Initialize with block count first time to not get large tps before running one iteration
         r['tps'] = 1000 * (r['blocks']-self.blocks_old) / update_every #use previous iteration (multiply 1000 and divide with 1000 in chart to get decimals)
-        self.blocks_old = r['tps'] #update for next iteration
+        self.blocks_old = r['blocks'] #update for next iteration
         self.tps_old.append(r['tps'])
         self.tps_old.popleft()
 
