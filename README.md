@@ -68,7 +68,6 @@ You can uncomment stuff like "history = 18000" to save history for 18000 datapoi
 
 ## Demo site (Odroid C2). PLEASE DON'T ABUSE, I WILL HAVE TO DISABLE THESE URLs.
 * [Demo 1 - Nano Dashboard](https://node.nanolinks.info)
-* [Demo 1 - Original Dashboard](https://node.nanolinks.info/index.html)
 * [Demo 2 - Nano Dashboard](http://status.fastfeeless.com)
 
 ## Donation
