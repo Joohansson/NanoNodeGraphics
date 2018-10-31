@@ -5,7 +5,7 @@ Nano Node Graphics is a simplified dashboard for your nano node based on netdata
 * [Light Theme Preview](https://i.imgur.com/TPUdbLd.jpg)
 
 ## Current Version
-Current version is 1.17. Check your nano.html if this one is newer, continue with **[Update procedure](#update-nanonodegraphics)** below.
+Current version is 1.18. Check your nano.html if this one is newer, continue with **[Update procedure](#update-nanonodegraphics)** below.
 
 ## Requirements
 * Netdata application [Source](https://github.com/netdata/netdata)
@@ -46,6 +46,7 @@ The NanoNodeGraphics need to access your **NanoNodeMonitor** API. Your node moni
 You can change how often it updates the charts with "update_every = 5". Change where in the advanced dashboard it show up with "priority = 1000" or change what charts that should be visible with "ORDER". **This file will be overwritten if you follow the update procedure below.** [More Info](https://github.com/netdata/netdata/tree/master/collectors/plugins.d)
 
 After configuring plugin you need to restart netdata and wait approx 15sec: `sudo systemctl restart netdata.service`
+**It might also be required to restart netdata after reboot because it starts before the nodeAPI is ready.**
 
 ### -Custom Dashboard
 **The dashboard** can also be configured to your own liking: `sudo nano /usr/share/netdata/web/nano.html`

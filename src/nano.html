@@ -19,7 +19,8 @@
 	<meta property="og:title" content="Nano Node Graphics - Realtime Monitor"/>
 	<meta property="og:description" content="Nano Node Graphics is a simplified dashboard for your nano node based on netdata application and nano node monitor api." />
 	
-	<link rel="stylesheet" type="text/css" href="nano.css?ver=20181027-1">
+	<link rel="stylesheet" type="text/css" href="nano.css?ver=20181031-2">
+
 </head>
 <script>
 // this section has to appear before loading dashboard.js
@@ -137,7 +138,7 @@ setTimeout(function(){
 		</div>
 		<div class="div-system-group-c left">
 			<div data-netdata="system.cpu"
-				data-title="CPU"
+				data-title="CPU Total"
 				data-gauge-max-value="100"
 				data-decimal-digits="1"
 				data-units="%"
@@ -149,7 +150,7 @@ setTimeout(function(){
 				data-colors="#747de8"
 			></div>
 			<div data-netdata="system.ram"
-				data-title="Used RAM"
+				data-title="RAM Total"
 				data-gauge-max-value="100"
 				data-dimensions="used|buffers|active|wired"
 				data-append-options="percentage"
@@ -160,7 +161,7 @@ setTimeout(function(){
 				data-before="0"
 				data-after="-300"
 				data-points="300"
-				data-colors="#e87474"
+				data-colors="#74c06b"
 			></div>
 		</div>
 		<div class="div-system-group left">
@@ -333,25 +334,6 @@ setTimeout(function(){
 		
 		<div class="div-graph">
 			<div class="div-header">
-				<b>Connected Peers</b>
-			</div>
-			<div class="div-graph-data">
-				<div data-netdata="nanonode_local.peers"
-					data-title="Peers"
-				        data-decimal-digits="0"
-					data-common-max="nanonode_local.peers"
-					data-common-min="nanonode_local.peers"
-					data-dygraph-valuerange="0, data-common-max"
-					data-chart-library="dygraph"
-					data-width="90%"
-					data-height="100%"
-					data-after="-600"
-					data-colors="#e87474"
-				></div>
-			</div>
-		</div>
-		<div class="div-graph">
-			<div class="div-header">
 				<b>Node TPS</b>
 			</div>
 			<div class="div-graph-data">
@@ -388,10 +370,29 @@ setTimeout(function(){
 				></div>
 			</div>
 		</div>
+		<div class="div-graph">
+                        <div class="div-header">
+                                <b>Connected Peers</b>
+                        </div>
+                        <div class="div-graph-data">
+                                <div data-netdata="nanonode_local.peers"
+                                        data-title="Peers"
+                                        data-decimal-digits="0"
+                                        data-common-max="nanonode_local.peers"
+                                        data-common-min="nanonode_local.peers"
+                                        data-dygraph-valuerange="0, data-common-max"
+                                        data-chart-library="dygraph"
+                                        data-width="90%"
+                                        data-height="100%"
+                                        data-after="-600"
+                                        data-colors="#e87474"
+                                ></div>
+                        </div>
+                </div>
 	</div>
 	<div class="div-footer">
 		<p class="footer-text">
-			<span><strong>Version 1.17 - <a href="https://github.com/Joohansson/NanoNodeGraphics">Github Source</a></strong></span><br/>
+			<span><strong>Version 1.18 - <a href="https://github.com/Joohansson/NanoNodeGraphics">Github Source</a></strong></span><br/>
 			<span><strong>Developer Nano Donation:</strong> xrb_1gur37mt5cawjg5844bmpg8upo4hbgnbbuwcerdobqoeny4ewoqshowfakfo</span>
 		</p>
 	</div>
