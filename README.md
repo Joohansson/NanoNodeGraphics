@@ -79,8 +79,9 @@ You can uncomment stuff like "history = 18000" to save history for 5h (requires 
 3. Restart netdata: `sudo systemctl restart netdata.service`
 
 ## Demo site (Odroid C2). PLEASE DON'T ABUSE, I WILL HAVE TO DISABLE THESE URLs.
-* [Advanced dashboard](http://node.nanolinks.info:8080)
-* [Simple dashboard](http://node.nanolinks.info:8080/nano.html)
+* [Demo 1 - Nano Dashboard](https://node.nanolinks.info)
+* [Demo 1 - Original Dashboard](https://node.nanolinks.info/index.html)
+* [Demo 2 - Nano Dashboard](http://status.fastfeeless.com)
 
 ## Donation
 If you find this helpful, any small nano donation is greatly appreciated!
