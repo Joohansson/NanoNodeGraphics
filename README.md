@@ -55,23 +55,11 @@ For example changing the title, description theme, and url to your dashboard.js.
 ### -Netdata
 Finally, **the netdata itself** can be configured: `sudo nano /etc/netdata/netdata.conf`
 
-You can uncomment stuff like "history = 18000" to save history for 5h (requires a bit more ram, approx 60MB), "update every = 5" to slow down the chart updates to once every 5sec, change default port from 19999, etc. [More Info](https://github.com/netdata/netdata/wiki/Configuration)
+You can uncomment stuff like "history = 18000" to save history for 18000 datapoints or 30h if you use 6sec poll rate (requires a bit more ram, approx 60MB), "update every = 6" to slow down the chart updates to once every 6sec, change default port from 19999, etc. [More Info](https://github.com/netdata/netdata/wiki/Configuration)
 
-**You probably want netdata to start at boot** [More info](https://github.com/netdata/netdata/wiki/Installation):
-- stop netdata
-`killall netdata`
-
-- copy netdata.service to systemd
-`cp system/netdata.service /etc/systemd/system/`
-
-- let systemd know there is a new service
-`systemctl daemon-reload`
-
-- enable netdata at boot
-`systemctl enable netdata`
-
-- start netdata
-`systemctl start netdata`
+**The nano plugin might not start correctly directly after boot. Try restart netdata 1min after boot**
+1. Open crontab as root: `sudo crontab -e`
+2. Add this line: `@reboot sleep 60 && systemctl restart netdata.service`
 
 ## Update NanoNodeGraphics
 1. Go to the NanoNodeGraphics dir and pull from github or remove and make a new clone if that doesn't work: `git pull` or `git clone`
