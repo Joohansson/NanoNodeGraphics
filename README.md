@@ -1,8 +1,10 @@
 # NanoNodeGraphics
 Nano Node Graphics is a simplified dashboard for your nano node based on netdata application and nano node monitor api.
 
-* [Dark Theme Preview](https://i.imgur.com/2k5Qska.jpg)
-* [Light Theme Preview](https://i.imgur.com/TPUdbLd.jpg)
+* [Dark Theme Preview 1](https://github.com/Joohansson/NanoNodeGraphics/blob/master/img/dark1.PNG?raw=true)
+* [Dark Theme Preview 2](https://github.com/Joohansson/NanoNodeGraphics/blob/master/img/dark2.PNG?raw=true)
+* [Light Theme Preview 1](https://github.com/Joohansson/NanoNodeGraphics/blob/master/img/light1.PNG?raw=true)
+* [Light Theme Preview 2](https://github.com/Joohansson/NanoNodeGraphics/blob/master/img/light2.PNG?raw=true)
 
 ## Current Version
 Current version is 1.19. Check your nano.html if this one is newer, continue with **[Update procedure](#update-nanonodegraphics)** below.
@@ -37,25 +39,31 @@ Current version is 1.19. Check your nano.html if this one is newer, continue wit
 ### -Nano node monitor
 The NanoNodeGraphics need to access your **NanoNodeMonitor** API. Your node monitor is most likely accessible from the internet on some IP or DOMAIN. That means port 80 is open in your vps network which land on the node monitor web server. Internally that is most likely http://localhost/api.php and it uses ipv4 127.0.0.1 and/or ipv6 [::1]. In the json you have all three setup as default which means it will try all and use the first one that succeed. You can try this by running the curl command: curl localhost/api.php, curl 127.0.0.1/api.php and curl [::1]/api.php. If you get same response as http://yourNodeMonitorURL/api.php from a remote browser you are good to go!
 
+**Set matching cache**: Netdata plugin fetches by default every 6th second from nodeMonitor API but the default cache TTL in nodeMonitor is 30sec. For optimal results, edit "modules/config.php" and set "$cacheTimeToLive = 5;" and uncomment the cache method to activate the new value. You can still have the $autoRefreshInSeconds to for example 30sec to not put too high load on your RPC. Or setup another instance/copy of nodeMonitor with different values that is not public.
+
 ### -Firewall
 **Netmonitor** setup a second web server on your vps running on port 19999 as default and you can test that with curl localhost:19999 for example or if you followed my instructions: curl localhost:19999/nano.html should give the content of nano.html. What you probably need to do is to give access to inbound TCP port 19999 from outside your vps into your netdata server (often called port forward, NAT rule or firewall policy). Maybe you allow all ports or only port 80 (or no firewall at all), you have to check your vps network config. For DigitalOcean there is a guide in step 1 above and more specifically for firewall setup [Here](https://www.digitalocean.com/docs/networking/firewalls/how-to/configure-rules/). You might need to configure UFW internal firewall if you have any but do it last if nothing else works: `sudo ufw allow 19999/tcp`
 
 ### -Plugin
 **The nano plugin** can also be configured. `sudo nano /usr/libexec/netdata/python.d/nanonode.chart.py`
 
-You can change how often it updates the charts with "update_every = 5". Change where in the advanced dashboard it show up with "priority = 1000" or change what charts that should be visible with "ORDER". **This file will be overwritten if you follow the update procedure below.** [More Info](https://github.com/netdata/netdata/tree/master/collectors/plugins.d)
+You can change how often it updates the charts with "update_every = 6". Change where in the advanced dashboard it show up with "priority = 1000" or change what charts that should be visible with "ORDER". **This file will be overwritten if you follow the update procedure below.** [More Info](https://github.com/netdata/netdata/tree/master/collectors/plugins.d)
 
 After configuring plugin you need to restart netdata and wait approx 15sec: `sudo systemctl restart netdata.service`
 **It might also be required to restart netdata after reboot because it starts before the nodeAPI is ready.**
 
 ### -Custom Dashboard
 **The dashboard** can also be configured to your own liking: `sudo nano /usr/share/netdata/web/nano.html`
-For example changing the title, description theme, and url to your dashboard.js. This dashboard can be run on any web server or even locally from a pc folder. Don't need to be on the same machine as netdata. Just link to your dashboard.js and it should work. **This file will be overwritten if you follow the update procedure below.** [More Info](https://github.com/netdata/netdata/wiki/Custom-Dashboards)
+For example changing the title, description theme, and url to your dashboard.js. This dashboard can be run on any web server or even locally from a pc folder. Don't need to be on the same machine as netdata. Just link to your dashboard.js and it should work.
+
+If you want to change the time interval each chart has at default zoom, you change the "data-after" variable for each chart (in seconds).
+
+**This file will be overwritten if you follow the update procedure below.** [More Info](https://github.com/netdata/netdata/wiki/Custom-Dashboards)
 
 ### -Netdata
 Finally, **the netdata itself** can be configured: `sudo nano /etc/netdata/netdata.conf`
 
-You can uncomment stuff like "history = 18000" to save history for 18000 datapoints or 30h if you use 6sec poll rate (requires a bit more ram, approx 60MB), "update every = 6" to slow down the chart updates to once every 6sec, change default port from 19999, etc. [More Info](https://github.com/netdata/netdata/wiki/Configuration)
+You can uncomment stuff like "history = 18000" to save history for 18000 datapoints or 30h if you use 6sec poll rate (requires a bit more ram, approx 60MB), "update every = 6" to slow down the chart updates to once every 6sec (to be synced with nano poll rate), change default port from 19999, etc. [More Info](https://github.com/netdata/netdata/wiki/Configuration)
 
 **The nano plugin might not start correctly directly after boot. Try restart netdata 1min after boot**
 1. Open crontab as root: `sudo crontab -e`
