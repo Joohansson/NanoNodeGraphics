@@ -72,11 +72,13 @@ You can uncomment stuff like "history = 18000" to save history for 18000 datapoi
 **Advanced setup for optimization**
 The default dashboard tracks 200-300 charts which will be stored in memory. See memory info at bottom right corner of your index.html dashboard. Increased history length will increase memory but if you're not interested in any other chart than what's shown on the nano dashboard, then follow this procedure to reduce number of charts down to approx 60:
 1. Go to dir: `cd /etc/netdata`
-2. Backup config: `sudo cp netdata.conf netdata.conf.bak`
-3. Disable ALL charts, overwrite existing file: `sudo awk '{sub(/# enabled = yes/,"enabled = no")}1' netdata.conf.bak > netdata.conf`
-4. Open config in editor: `sudo nano netdata.conf'
-5. Find following charts (ctrl+w) and set "enable" to "yes": system.ram, system.cpu, system.io, system.net
-6. Restart: `systemctl restart netdata`
+2. Switch to root: `sudo su`
+3. Backup config: `cp netdata.conf netdata.conf.bak`
+4. Disable ALL charts, overwrite existing file: `awk '{sub(/# enabled = yes/,"enabled = no")}1' netdata.conf.bak > netdata.conf`
+5. Open config in editor: `nano netdata.conf'
+6. Find following charts (ctrl+w) and set "enable" to "yes": system.ram, system.cpu, system.io, system.net
+7. Restart: `systemctl restart netdata`
+8. Exit root user: `exit`
 
 ## Update NanoNodeGraphics
 1. Go to the NanoNodeGraphics dir and pull from github or remove and make a new clone if that doesn't work: `git pull` or `git clone`
