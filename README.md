@@ -86,7 +86,7 @@ The default dashboard tracks 200-300 charts which will be stored in memory. See 
 2. Push files to netdata (excluding user config of plugin): `cd src && sudo chmod +x update.sh && sudo ./update.sh`
 3. Restart netdata: `sudo systemctl restart netdata.service`
 
-## Demo site (Odroid C2). PLEASE DON'T ABUSE, I WILL HAVE TO DISABLE THESE URLs.
+## Demo sites. PLEASE DON'T ABUSE, OR I WILL HAVE TO DISABLE THESE URLs.
 * [Demo 1 - Nano Dashboard](https://node.nanolinks.info)
 * [Demo 2 - Nano Dashboard](http://status.fastfeeless.com)
 
