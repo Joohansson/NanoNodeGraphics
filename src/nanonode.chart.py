@@ -2,7 +2,7 @@
 # Description: NanoNode netdata python.d module
 # Author: Joohansson
 # SPDX-License-Identifier: GPL-3.0-or-later
-# Updated: 2018-10-27
+# Updated: 2018-12-01
 
 from bases.FrameworkServices.UrlService import UrlService
 import json
