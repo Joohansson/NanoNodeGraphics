@@ -11,7 +11,7 @@ from collections import deque #for array shifting
 # default module values (can be overridden per job in `config`)
 update_every = 6 #update chart every 6 second (changing this will change TPS Ave interval to interval*50 sec)
 priority = 1000 #where it will appear on the main stat page and menu (60000 will place it last)
-retries = 60
+#retries = 60
 
 # default job configuration (overridden by python.d.plugin)
 # config = {'local': {
