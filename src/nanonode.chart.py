@@ -2,7 +2,7 @@
 # Description: NanoNode netdata python.d module
 # Author: Joohansson
 # SPDX-License-Identifier: GPL-3.0-or-later
-# Updated: 2018-12-01
+# Updated: 2019-02-08
 
 from bases.FrameworkServices.UrlService import UrlService
 import json
@@ -23,24 +23,24 @@ priority = 1000 #where it will appear on the main stat page and menu (60000 will
 
 # charts order (can be overridden if you want less charts, or different order)
 
-#ORDER = ['block_count', 'unchecked', 'peers', 'tps', 'tps_50', 'weight', 'delegators', 'block_sync', 'account_balance', 'uptime']
-ORDER = ['block_count', 'unchecked', 'peers', 'tps', 'tps_50', 'block_sync', 'uptime']
+#ORDER = ['block_count', 'unchecked', 'peers', 'tps', 'tps_50', 'confirmations', 'weight', 'delegators', 'block_sync', 'account_balance', 'uptime']
+ORDER = ['block_count', 'unchecked', 'peers', 'tps', 'tps_50', 'confirmations', 'block_sync', 'uptime']
 
 CHARTS = {
     'block_count': {
-        'options': [None, 'Block Count', 'Blocks', 'Blocks','nano.blocks', 'area'],
+        'options': [None, 'Block Count', 'blocks', 'Blocks','nano.blocks', 'area'],
         'lines': [
             ["blocks", None, 'absolute']
         ]
     },
     'unchecked': {
-        'options': [None, 'Unchecked Blocks', 'Blocks', 'Unchecked','nano.unchecked', 'line'],
+        'options': [None, 'Unchecked Blocks', 'blocks', 'Unchecked','nano.unchecked', 'line'],
         'lines': [
             ["unchecked", None, 'absolute']
         ]
     },
     'peers': {
-        'options': [None, 'Peers', 'Peers', 'Peers','nano.peers', 'line'],
+        'options': [None, 'Peers', 'peers', 'Peers','nano.peers', 'line'],
         'lines': [
             ["peers", None, 'absolute']
         ]
@@ -86,6 +86,17 @@ CHARTS = {
         'lines': [
             ["tps_50", None, 'absolute', 1, 1000]
         ]
+    },
+    'confirmations': {
+        'options': [None, 'Confirmation Time', 'ms', 'Conf-Time Max 5min/2048tx','nano.conf', 'line'],
+        'lines': [
+            ["average", None, 'absolute'],
+            ["perc_50", None, 'absolute'],
+            ["perc_75", None, 'absolute'],
+            ["perc_90", None, 'absolute'],
+            #["perc_95", None, 'absolute'],
+            ["perc_99", None, 'absolute']
+        ]
     }
 }
 
@@ -115,6 +126,7 @@ class Service(UrlService):
         apiKeys = [('blocks','currentBlock',int,1),('unchecked','uncheckedBlocks',int,1),('peers','numPeers',int,1),
             ('weight','votingWeight',float,1000),('block_sync','blockSync',float,1000),('account_balance','accBalanceMnano',float,1000)]
         apiKeysNinja = [('delegators','delegators',int,1),('uptime','uptime',float,1000)]
+        apiKeysConf = [('average','average',int,1),('perc_50','percentile50',int,1),('perc_75','percentile75',int,1),('perc_90','percentile90',int,1),('perc_95','percentile95',int,1),('perc_99','percentile99',int,1)]
         r = dict()
 
         #Extract data from json based on default node monitor keys
@@ -122,6 +134,7 @@ class Service(UrlService):
             try:
                 r[new_key] = keytype(mul * parsed[orig_key])
             except Exception:
+                r[new_key] = 0 #replace with 0 if value missing from API
                 continue
 
         #Extract data from json based on NinjaKeys
@@ -129,7 +142,23 @@ class Service(UrlService):
             try:
                 r[new_key] = keytype(mul * parsed['nodeNinja'][orig_key])
             except Exception:
+                r[new_key] = 0 #replace with 0 if value missing from API
                 continue
+
+        #Extract data from json based on confirmationInfo
+        for new_key, orig_key, keytype, mul in apiKeysConf:
+            try:
+                r[new_key] = keytype(mul * parsed['confirmationInfo'][orig_key])
+            except Exception:
+                r[new_key] = 0 #replace with 0 if value missing from API
+                continue
+
+
+        #Replace values with zero if missing
+        #try:
+        #    val = r['uptime']
+        #except Exception:
+        #    r['uptime'] = 0
 
         #Calculate tps based on previous block read
         if (self.blocks_old == 0):
