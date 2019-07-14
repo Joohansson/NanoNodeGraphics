@@ -23,14 +23,21 @@ priority = 1000 #where it will appear on the main stat page and menu (60000 will
 
 # charts order (can be overridden if you want less charts, or different order)
 
-#ORDER = ['block_count', 'unchecked', 'peers', 'tps', 'tps_50', 'confirmations', 'weight', 'delegators', 'block_sync', 'account_balance', 'uptime']
-ORDER = ['block_count', 'unchecked', 'peers', 'tps', 'tps_50', 'confirmations', 'block_sync', 'uptime']
+#ORDER = ['block_count', 'cemented', 'unchecked', 'peers', 'tps', 'tps_50', 'cps', 'cps_50', 'confirmations', 'weight', 'delegators', 'block_sync', 'account_balance', 'uptime']
+ORDER = ['block_count', 'unchecked', 'peers', 'tps', 'tps_50', 'cps', 'cps_50', 'confirmations', 'block_sync', 'uptime']
 
 CHARTS = {
     'block_count': {
         'options': [None, 'Block Count', 'blocks', 'Blocks','nano.blocks', 'area'],
         'lines': [
-            ["blocks", None, 'absolute']
+            ["saved_blocks", "saved", None, 'absolute'],
+            ["confirmed_blocks", "conf", None, 'absolute']
+        ]
+    },
+    'cemented': {
+        'options': [None, 'Cemented Blocks', 'blocks', 'Cemented','nano.cemented', 'area'],
+        'lines': [
+            ["cemented", None, 'absolute']
         ]
     },
     'unchecked': {
@@ -76,15 +83,27 @@ CHARTS = {
         ]
     },
     'tps': {
-        'options': [None, 'Node TPS', 'tx/s', 'TPS','nano.tps', 'line'],
+        'options': [None, 'Node BPS', 'tx/s', 'BPS','nano.tps', 'line'],
         'lines': [
             ["tps", None, 'absolute',1 , 1000]
         ]
     },
     'tps_50': {
-        'options': [None, 'Node TPS Ave', 'tx/s', 'TPS Ave 5 min','nano.tps50', 'line'],
+        'options': [None, 'Node BPS Ave', 'tx/s', 'BPS Ave 5 min','nano.tps50', 'line'],
         'lines': [
             ["tps_50", None, 'absolute', 1, 1000]
+        ]
+    },
+    'cps': {
+        'options': [None, 'Node CPS', 'tx/s', 'CPS','nano.cps', 'line'],
+        'lines': [
+            ["cps", None, 'absolute',1 , 1000]
+        ]
+    },
+    'cps_50': {
+        'options': [None, 'Node CPS Ave', 'tx/s', 'CPS Ave 5 min','nano.cps50', 'line'],
+        'lines': [
+            ["cps_50", None, 'absolute', 1, 1000]
         ]
     },
     'confirmations': {
@@ -108,6 +127,8 @@ class Service(UrlService):
         self.definitions = CHARTS
         self.blocks_old = 0 #block count previous poll
         self.tps_old = deque([0]*50) #tps history last 50 polls, init with 50 zeroes
+        self.cemented_old = 0 #cemented count previous poll
+        self.cps_old = deque([0]*50) #cps history last 50 polls, init with 50 zeroes
 
     def _get_data(self):
         """
@@ -123,7 +144,7 @@ class Service(UrlService):
             return None
 
         #Keys to read from api data with the first entry is keys used by the charts
-        apiKeys = [('blocks','currentBlock',int,1),('unchecked','uncheckedBlocks',int,1),('peers','numPeers',int,1),
+        apiKeys = [('saved_blocks','currentBlock',int,1),('confirmed_blocks','cementedBlocks',int,1),('unchecked','uncheckedBlocks',int,1),('peers','numPeers',int,1),
             ('weight','votingWeight',float,1000),('block_sync','blockSync',float,1000),('account_balance','accBalanceMnano',float,1000)]
         apiKeysNinja = [('delegators','delegators',int,1),('uptime','uptime',float,1000)]
         apiKeysConf = [('average','average',int,1),('perc_50','percentile50',int,1),('perc_75','percentile75',int,1),('perc_90','percentile90',int,1),('perc_95','percentile95',int,1),('perc_99','percentile99',int,1)]
@@ -160,18 +181,32 @@ class Service(UrlService):
         #except Exception:
         #    r['uptime'] = 0
 
-        #Calculate tps based on previous block read
+        #Calculate bps based on previous block read
         if (self.blocks_old == 0):
-            self.blocks_old = r['blocks'] #Initialize with block count first time to not get large tps before running one iteration
-        r['tps'] = 1000 * (r['blocks']-self.blocks_old) / update_every #use previous iteration (multiply 1000 and divide with 1000 in chart to get decimals)
-        self.blocks_old = r['blocks'] #update for next iteration
+            self.blocks_old = r['saved_blocks'] #Initialize with block count first time to not get large tps before running one iteration
+        r['tps'] = 1000 * (r['saved_blocks']-self.blocks_old) / update_every #use previous iteration (multiply 1000 and divide with 1000 in chart to get decimals)
+        self.blocks_old = r['saved_blocks'] #update for next iteration
         self.tps_old.append(r['tps'])
         self.tps_old.popleft()
 
-        #Calculate tps past 50 iterations based on average tps
+        #Calculate bps past 50 iterations based on average tps
         sum = 0
         for tps in self.tps_old:
             sum = sum + tps
         r['tps_50'] = sum / len(self.tps_old) 
+
+        #Calculate cps based on previous block read
+        if (self.cemented_old == 0):
+            self.cemented_old = r['confirmed_blocks'] #Initialize with block count first time to not get large tps before running one iteration
+        r['cps'] = 1000 * (r['confirmed_blocks']-self.cemented_old) / update_every #use previous iteration (multiply 1000 and divide with 1000 in chart to get decimals)
+        self.cemented_old = r['confirmed_blocks'] #update for next iteration
+        self.cps_old.append(r['cps'])
+        self.cps_old.popleft()
+
+        #Calculate tps past 50 iterations based on average tps
+        sum = 0
+        for cps in self.cps_old:
+            sum = sum + cps
+        r['cps_50'] = sum / len(self.cps_old)
 
         return r or None
