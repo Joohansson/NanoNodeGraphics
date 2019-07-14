@@ -18,7 +18,7 @@
 	<meta property="og:site_name" content="netdata"/>
 	<meta property="og:title" content="Nano Node Graphics - Realtime Monitor"/>
 	<meta property="og:description" content="Nano Node Graphics is a simplified dashboard for your nano node based on netdata application and nano node monitor api." />
-	
+
 	<link rel="stylesheet" type="text/css" href="nano.css?ver=20181031-2">
 
 </head>
@@ -88,7 +88,7 @@ setTimeout(function(){
 
 <div class="div-main">
 	<h1>Nano Node Graphics</h1>
-	
+
 	<div class="div-system">
 		<div class="div-system-group left">
 			<div data-netdata="system.io"
@@ -177,15 +177,15 @@ setTimeout(function(){
 				data-colors="#747de8"
 			></div>
 			 <div data-netdata="nanonode_local.unchecked"
-                                data-title="Unchecked"
-                                data-decimal-digits="0"
-                                data-units="blocks"
-                                data-chart-library="easypiechart"
-                                data-width="22%"
-                                data-before="0"
-                                data-points="300"
-                                data-colors="#747de8"
-                        ></div>
+        data-title="Unchecked"
+        data-decimal-digits="0"
+        data-units="blocks"
+        data-chart-library="easypiechart"
+        data-width="22%"
+        data-before="0"
+        data-points="300"
+        data-colors="#747de8"
+      ></div>
 			<div data-netdata="nanonode_local.uptime"
 				data-title="Node Uptime"
 				data-easypiechart-max-value="100"
@@ -197,8 +197,8 @@ setTimeout(function(){
 				data-points="300"
 				data-colors="#74e4e8"
 			></div>
-			<div data-netdata="nanonode_local.tps_50"
-				data-title="TPS 5min"
+			<div data-netdata="nanonode_local.cps_50"
+				data-title="CPS 5min"
 				data-decimal-digits="2"
 				data-units="tx/s"
 				data-chart-library="easypiechart"
@@ -209,7 +209,7 @@ setTimeout(function(){
 			></div>
 		</div>
 	</div>
-	
+
 	<div class="div-float left">
 		<h2>Hardware Stats</h2>
 		<div class="div-graph">
@@ -227,7 +227,7 @@ setTimeout(function(){
 				></div>
 			</div>
 		</div>
-		
+
 		<div class="div-graph">
 			<div class="div-header">
 				<b>Memory Used</b>
@@ -262,7 +262,7 @@ setTimeout(function(){
 				></div>
 			</div>
 		</div>
-		
+
 		<div class="div-graph">
 			<div class="div-header">
 				<b>Disk I/O</b>
@@ -280,7 +280,7 @@ setTimeout(function(){
 				></div>
 			</div>
 		</div>
-		
+
 		<div class="div-graph">
 			<div class="div-header">
 				<b>Network</b>
@@ -299,7 +299,7 @@ setTimeout(function(){
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="div-float right">
 		<h2>Node Stats</h2>
 		<div class="div-graph">
