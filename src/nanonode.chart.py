@@ -23,7 +23,7 @@ priority = 1000 #where it will appear on the main stat page and menu (60000 will
 
 # charts order (can be overridden if you want less charts, or different order)
 
-#ORDER = ['block_count', 'cemented', 'unchecked', 'peers', 'tps', 'tps_50', 'cps', 'cps_50', 'confirmations', 'weight', 'delegators', 'block_sync', 'account_balance', 'uptime']
+#ORDER = ['block_count', 'unchecked', 'peers', 'tps', 'tps_50', 'cps', 'cps_50', 'confirmations', 'weight', 'delegators', 'block_sync', 'account_balance', 'uptime']
 ORDER = ['block_count', 'unchecked', 'peers', 'tps', 'tps_50', 'cps', 'cps_50', 'confirmations', 'block_sync', 'uptime']
 
 CHARTS = {
@@ -193,7 +193,7 @@ class Service(UrlService):
         sum = 0
         for tps in self.tps_old:
             sum = sum + tps
-        r['tps_50'] = sum / len(self.tps_old) 
+        r['tps_50'] = sum / len(self.tps_old)
 
         #Calculate cps based on previous block read
         if (self.cemented_old == 0):
