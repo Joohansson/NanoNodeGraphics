@@ -26,7 +26,7 @@
 // this section has to appear before loading dashboard.js
 
 // Select a theme.
-// uncomment on of the two themes:
+// uncomment one of the two themes:
 
 //var netdataTheme = 'default'; // this is white
 var netdataTheme = 'slate'; // this is dark
@@ -176,6 +176,16 @@ setTimeout(function(){
 				data-points="300"
 				data-colors="#747de8"
 			></div>
+			 <div data-netdata="nanonode_local.unchecked"
+                                data-title="Unchecked"
+                                data-decimal-digits="0"
+                                data-units="blocks"
+                                data-chart-library="easypiechart"
+                                data-width="22%"
+                                data-before="0"
+                                data-points="300"
+                                data-colors="#747de8"
+                        ></div>
 			<div data-netdata="nanonode_local.uptime"
 				data-title="Node Uptime"
 				data-easypiechart-max-value="100"
@@ -186,16 +196,6 @@ setTimeout(function(){
 				data-after="-300"
 				data-points="300"
 				data-colors="#74e4e8"
-			></div>
-			<div data-netdata="nanonode_local.tps"
-				data-title="TPS Now"
-				data-decimal-digits="2"
-				data-units="tx/s"
-				data-chart-library="easypiechart"
-				data-width="22%"
-				data-after="-300"
-				data-points="300"
-				data-colors="#7ad96e"
 			></div>
 			<div data-netdata="nanonode_local.tps_50"
 				data-title="TPS 5min"
@@ -230,7 +230,7 @@ setTimeout(function(){
 		
 		<div class="div-graph">
 			<div class="div-header">
-				<b>Memory</b>
+				<b>Memory Used</b>
 			</div>
 			<div class="div-graph-data">
 				<div data-netdata="system.ram"
@@ -245,6 +245,9 @@ setTimeout(function(){
 					data-colors="#7ad96e #7ad96e #7ad96e #7ad96e"
 				></div>
 			</div>
+			<div class="div-header">
+                                <b>Memory Cached</b>
+                        </div>
 			<div class="div-graph-data">
 				<div data-netdata="system.ram"
 					data-dimensions="cached"
@@ -301,7 +304,7 @@ setTimeout(function(){
 		<h2>Node Stats</h2>
 		<div class="div-graph">
 			<div class="div-header">
-				<b>Blocks</b>
+				<b>Saved and Confirmed Blocks</b>
 			</div>
 			<div class="div-graph-data">
 				<div data-netdata="nanonode_local.block_count"
@@ -313,23 +316,7 @@ setTimeout(function(){
 					data-width="90%"
 					data-height="100%"
 					data-after="-1800"
-					data-colors="#747de8"
-				></div>
-			</div>
-		</div>
-		
-		<div class="div-graph">
-			<div class="div-graph-data">
-				<div data-netdata="nanonode_local.unchecked"
-					data-title="Unchecked Blocks"
-				        data-decimal-digits="0"
-					data-common-max="nanonode_local.unchecked"
-					data-common-min="nanonode_local.unchecked"
-					data-chart-library="dygraph"
-					data-width="90%"
-					data-height="100%"
-					data-after="-1800"
-					data-colors="#747de8"
+					data-colors="#747de8 #7ad96e"
 				></div>
 			</div>
 		</div>
@@ -355,11 +342,11 @@ setTimeout(function(){
 		</div>-->
 		<div class="div-graph">
 			<div class="div-header">
-				<b>Node TPS Ave 5min</b>
+				<b>Node BPS Ave 5min</b>
 			</div>
 			<div class="div-graph-data">
 				<div data-netdata="nanonode_local.tps_50"
-					data-title="TPS Ave"
+					data-title="BPS Ave"
 					data-decimal-digits="3"
 					data-common-max="nanonode_local.tps_50"
 					data-common-min="nanonode_local.tps_50"
@@ -372,6 +359,25 @@ setTimeout(function(){
 				></div>
 			</div>
 		</div>
+		<div class="div-graph">
+                        <div class="div-header">
+                                <b>Node CPS Ave 5min</b>
+                        </div>
+                        <div class="div-graph-data">
+                                <div data-netdata="nanonode_local.cps_50"
+                                        data-title="CPS Ave"
+                                        data-decimal-digits="3"
+                                        data-common-max="nanonode_local.cps_50"
+                                        data-common-min="nanonode_local.cps_50"
+                                        data-dygraph-valuerange="0, data-common-max"
+                                        data-chart-library="dygraph"
+                                        data-width="90%"
+                                        data-height="100%"
+                                        data-after="-1800"
+                                        data-colors="#7ad96e"
+                                ></div>
+                        </div>
+                </div>
 		<div class="div-graph">
                         <div class="div-header">
                                 <b>Block Confirmation Times</b>
@@ -413,7 +419,7 @@ setTimeout(function(){
 	</div>
 	<div class="div-footer">
 		<p class="footer-text">
-			<span><strong>Version 1.30 - <a href="https://github.com/Joohansson/NanoNodeGraphics">Github Source</a></strong></span><br/>
+			<span><strong>Version 1.40 - <a href="https://github.com/Joohansson/NanoNodeGraphics">Github Source</a></strong></span><br/>
 			<span><strong>Developer Nano Donation:</strong> xrb_1gur37mt5cawjg5844bmpg8upo4hbgnbbuwcerdobqoeny4ewoqshowfakfo</span>
 		</p>
 	</div>
