@@ -7,12 +7,12 @@ Nano Node Graphics is a simplified dashboard for your nano node based on netdata
 * [Light Theme Preview 2](https://github.com/Joohansson/NanoNodeGraphics/blob/master/img/light2.PNG?raw=true)
 
 ## Current Version
-Current version is 1.40 (2019-07-14). Check your nano.html if this one is newer, continue with **[Update procedure](#update-nanonodegraphics)** below.
+Current version is 1.41 (2019-07-14). Check your nano.html if this one is newer, continue with **[Update procedure](#update-nanonodegraphics)** below.
 
 ## Requirements
 * Netdata application [Source](https://github.com/netdata/netdata)
 * Nano node [Source](https://github.com/nanocurrency/raiblocks/releases)
-* Nano node monitor, preferrably connected to [mynano.ninja](https://mynano.ninja/) [Source](https://github.com/NanoTools/nanoNodeMonitor)
+* Nano node monitor, preferably connected to [mynano.ninja](https://mynano.ninja/) [Source](https://github.com/NanoTools/nanoNodeMonitor)
 
 ## Installation
 1. Install netdata. Easiest with the one-liner. https://github.com/netdata/netdata/wiki/Installation - There is also a guide for DigitalOcean here: https://www.digitalocean.com/community/tutorials/how-to-set-up-real-time-performance-monitoring-with-netdata-on-ubuntu-16-04

@@ -176,16 +176,6 @@ setTimeout(function(){
 				data-points="300"
 				data-colors="#747de8"
 			></div>
-			 <div data-netdata="nanonode_local.unchecked"
-        data-title="Unchecked"
-        data-decimal-digits="0"
-        data-units="blocks"
-        data-chart-library="easypiechart"
-        data-width="22%"
-        data-before="0"
-        data-points="300"
-        data-colors="#747de8"
-      ></div>
 			<div data-netdata="nanonode_local.uptime"
 				data-title="Node Uptime"
 				data-easypiechart-max-value="100"
@@ -197,10 +187,22 @@ setTimeout(function(){
 				data-points="300"
 				data-colors="#74e4e8"
 			></div>
-			<div data-netdata="nanonode_local.cps_50"
+			<div data-netdata="nanonode_local.tps_50"
+				data-title="TPS 5min"
+				data-decimal-digits="2"
+				data-units="blocks/s"
+				data-dimensions="bps_50"
+				data-chart-library="easypiechart"
+				data-width="22%"
+				data-after="-300"
+				data-points="300"
+				data-colors="#747de8"
+			></div>
+			<div data-netdata="nanonode_local.tps_50"
 				data-title="CPS 5min"
 				data-decimal-digits="2"
-				data-units="tx/s"
+				data-units="blocks/s"
+				data-dimensions="cps_50"
 				data-chart-library="easypiechart"
 				data-width="22%"
 				data-after="-300"
@@ -309,7 +311,7 @@ setTimeout(function(){
 			<div class="div-graph-data">
 				<div data-netdata="nanonode_local.block_count"
 					data-title="Block Count"
-				        data-decimal-digits="0"
+				  data-decimal-digits="0"
 					data-common-max="nanonode_local.block_count"
 					data-common-min="nanonode_local.block_count"
 					data-chart-library="dygraph"
@@ -320,33 +322,13 @@ setTimeout(function(){
 				></div>
 			</div>
 		</div>
-		<!--
 		<div class="div-graph">
 			<div class="div-header">
-				<b>Node TPS</b>
-			</div>
-			<div class="div-graph-data">
-				<div data-netdata="nanonode_local.tps"
-					data-title="TPS"
-					data-decimal-digits="3"
-					data-common-max="nanonode_local.tps"
-					data-common-min="nanonode_local.tps"
-					data-dygraph-valuerange="0, data-common-max"
-					data-chart-library="dygraph"
-					data-width="90%"
-					data-height="100%"
-					data-after="-1800"
-					data-colors="#7ad96e"
-				></div>
-			</div>
-		</div>-->
-		<div class="div-graph">
-			<div class="div-header">
-				<b>Node BPS Ave 5min</b>
+				<b>BPS and CPS Ave 5min</b>
 			</div>
 			<div class="div-graph-data">
 				<div data-netdata="nanonode_local.tps_50"
-					data-title="BPS Ave"
+					data-title="TPS Ave"
 					data-decimal-digits="3"
 					data-common-max="nanonode_local.tps_50"
 					data-common-min="nanonode_local.tps_50"
@@ -355,67 +337,67 @@ setTimeout(function(){
 					data-width="90%"
 					data-height="100%"
 					data-after="-1800"
-					data-colors="#7ad96e"
+					data-colors="#747de8 #7ad96e"
 				></div>
 			</div>
 		</div>
 		<div class="div-graph">
-                        <div class="div-header">
-                                <b>Node CPS Ave 5min</b>
-                        </div>
-                        <div class="div-graph-data">
-                                <div data-netdata="nanonode_local.cps_50"
-                                        data-title="CPS Ave"
-                                        data-decimal-digits="3"
-                                        data-common-max="nanonode_local.cps_50"
-                                        data-common-min="nanonode_local.cps_50"
-                                        data-dygraph-valuerange="0, data-common-max"
-                                        data-chart-library="dygraph"
-                                        data-width="90%"
-                                        data-height="100%"
-                                        data-after="-1800"
-                                        data-colors="#7ad96e"
-                                ></div>
-                        </div>
-                </div>
+      <div class="div-header">
+        <b>Unchecked Blocks</b>
+      </div>
+      <div class="div-graph-data">
+        <div data-netdata="nanonode_local.unchecked"
+                data-title="Unchecked"
+                data-decimal-digits="3"
+                data-common-max="nanonode_local.unchecked"
+                data-common-min="nanonode_local.unchecked"
+                data-dygraph-valuerange="0, data-common-max"
+                data-chart-library="dygraph"
+                data-width="90%"
+                data-height="100%"
+                data-after="-1800"
+                data-colors="#747de8"
+        ></div>
+      </div>
+    </div>
 		<div class="div-graph">
-                        <div class="div-header">
-                                <b>Block Confirmation Times</b>
-                        </div>
-                        <div class="div-graph-data">
-                                <div data-netdata="nanonode_local.confirmations"
-                                        data-title="Percentiles over 10min or max 2048 blocks | P50=Median"
-                                        data-decimal-digits="0"
-                                        data-common-max="nanonode_local.confirmations"
-                                        data-common-min="nanonode_local.confirmations"
-                                        data-chart-library="dygraph"
-                                        data-dygraph-theme="logscale"
-                                        data-width="90%"
-                                        data-height="100%"
-                                        data-after="-1800"
-                                        data-colors="#d7d7d7 #747de8 #7ad96e #e7893d #e87474"
-                                ></div>
-                        </div>
-                </div>
+      <div class="div-header">
+        <b>Block Confirmation Times</b>
+      </div>
+      <div class="div-graph-data">
+        <div data-netdata="nanonode_local.confirmations"
+                data-title="Percentiles over 10min or max 2048 blocks | P50=Median"
+                data-decimal-digits="0"
+                data-common-max="nanonode_local.confirmations"
+                data-common-min="nanonode_local.confirmations"
+                data-chart-library="dygraph"
+                data-dygraph-theme="logscale"
+                data-width="90%"
+                data-height="100%"
+                data-after="-1800"
+                data-colors="#d7d7d7 #747de8 #7ad96e #e7893d #e87474"
+        ></div>
+      </div>
+    </div>
 		<div class="div-graph">
-                        <div class="div-header">
-                                <b>Connected Peers</b>
-                        </div>
-                        <div class="div-graph-data">
-                                <div data-netdata="nanonode_local.peers"
-                                        data-title="Peers"
-                                        data-decimal-digits="0"
-                                        data-common-max="nanonode_local.peers"
-                                        data-common-min="nanonode_local.peers"
-                                        data-dygraph-valuerange="0, data-common-max"
-                                        data-chart-library="dygraph"
-                                        data-width="90%"
-                                        data-height="100%"
-                                        data-after="-1800"
-                                        data-colors="#e87474"
-                                ></div>
-                        </div>
-                </div>
+	    <div class="div-header">
+        <b>Connected Peers</b>
+	    </div>
+	    <div class="div-graph-data">
+        <div data-netdata="nanonode_local.peers"
+                data-title="Peers"
+                data-decimal-digits="0"
+                data-common-max="nanonode_local.peers"
+                data-common-min="nanonode_local.peers"
+                data-dygraph-valuerange="0, data-common-max"
+                data-chart-library="dygraph"
+                data-width="90%"
+                data-height="100%"
+                data-after="-1800"
+                data-colors="#e87474"
+        ></div>
+	    </div>
+  </div>
 	</div>
 	<div class="div-footer">
 		<p class="footer-text">
