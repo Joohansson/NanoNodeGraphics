@@ -65,6 +65,9 @@ Finally, **the netdata itself** can be configured: `sudo nano /etc/netdata/netda
 
 You can uncomment stuff like "history = 18000" to save history for 18000 datapoints or 30h if you use 6sec poll rate (requires a bit more ram, approx 60MB), "update every = 6" to slow down the chart updates to once every 6sec (to be synced with nano poll rate), change default port from 19999, etc. [More Info](https://github.com/netdata/netdata/wiki/Configuration)
 
+If you want to store for a really long time the consider setting the memory mode = dbengine. That will cache data in RAM plus saving long term on disk for as much disk space that you define. The "history" setting will be ignored.
+[More info about dbengine](https://docs.netdata.cloud/database/engine/)
+
 **The nano plugin might not start correctly directly after boot. Try restart netdata 1min after boot**
 1. Open crontab as root: `sudo crontab -e`
 2. Add this line: `@reboot sleep 60 && systemctl restart netdata.service`
