@@ -35,6 +35,20 @@ Current version is 1.41 (2019-07-14). Check your nano.html if this one is newer,
 18. Open a browser and load your netdata dashboard from step 2. The nanonode local and charts should show up after 10-60sec after service restart.
 19. If charts are working load the simplified dashboard: http://yourIP:19999/nano.html (if no access, test locally with `curl localhost:19999/nano.html` - then check how to configure firewall below).
 
+## Docker installation (with docker-compose)
+### Requirements:
+* Docker version >= 20.10.3
+* docker-compose
+
+1. Create a new work directory for NanoNodeGraphics
+2. Clone this repo to the work directory: `git clone https://github.com/Joohansson/NanoNodeGraphics`
+3. Copy the example docker-compose from the repo to the work dir: `cp NanoNodeGraphics/docker-compose.yml.example ./docker-compose.yml
+4. Edit the hostname in the docker-compose.yml to match your server
+5. Change the owner of the reposiroty to root: `chown root:root -R NanoNodeGraphics`
+6. Edit configuration with nano editor and uncomment the Docker auto detection job and change different port if needed: `sudo nano NanoNodeGraphics/src/nanonode.conf`
+7. Start the service in detached mode `docker-compose up -d`
+8. If charts are working load the simplified dashboard: http://yourIP:19999/nano.html (if no access, test locally with `curl localhost:19999/nano.html` - then check how to configure firewall below).
+
 ## Configuration / Troubleshooting
 ### -Nano node monitor
 The NanoNodeGraphics need to access your **NanoNodeMonitor** API. Your node monitor is most likely accessible from the internet on some IP or DOMAIN. That means port 80 is open in your vps network which land on the node monitor web server. Internally that is most likely http://localhost/api.php and it uses ipv4 127.0.0.1 and/or ipv6 [::1]. In the json you have all three setup as default which means it will try all and use the first one that succeed. You can try this by running the curl command: curl localhost/api.php, curl 127.0.0.1/api.php and curl [::1]/api.php. If you get same response as http://yourNodeMonitorURL/api.php from a remote browser you are good to go!
