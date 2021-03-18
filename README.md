@@ -44,10 +44,11 @@ Current version is 1.41 (2019-07-14). Check your nano.html if this one is newer,
 2. Clone this repo to the work directory: `git clone https://github.com/Joohansson/NanoNodeGraphics`
 3. Copy the example docker-compose from the repo to the work dir: `cp NanoNodeGraphics/docker-compose.yml.example ./docker-compose.yml
 4. Edit the hostname in the docker-compose.yml to match your server
-5. Change the owner of the reposiroty to root: `chown root:root -R NanoNodeGraphics`
+5. Change the owner of the repository to root: `chown root:root -R NanoNodeGraphics`
 6. Edit configuration with nano editor and uncomment the Docker auto detection job and change different port if needed: `sudo nano NanoNodeGraphics/src/nanonode.conf`
 7. Start the service in detached mode `docker-compose up -d`
 8. If charts are working load the simplified dashboard: http://yourIP:19999/nano.html (if no access, test locally with `curl localhost:19999/nano.html` - then check how to configure firewall below).
+9. To configure Netdata itself, you can copy the default netdata config to the configuration directory: `curl localhost:19999/netdata.conf >> ./netdataconfig/netdata/netdata.conf`. See other parts of readme for additional configuration examples.
 
 ## Configuration / Troubleshooting
 ### -Nano node monitor

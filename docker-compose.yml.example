@@ -25,10 +25,10 @@ services:
       - /sys:/host/sys:ro
       - /etc/os-release:/host/etc/os-release:ro
       # NanoNodeGraphics
-      - ./NanoNodeGraphics/src/nanonode.chart.py:/usr/libexec/netdata/python.d/nanonode.chart.py
-      - ./NanoNodeGraphics/src/nanonode.conf:/usr/lib/netdata/conf.d/python.d/nanonode.conf
-      - ./NanoNodeGraphics/src/nano.html:/usr/share/netdata/web/nano.html
-      - ./NanoNodeGraphics/src/nano.css:/usr/share/netdata/web/nano.css
+      - ./NanoNodeGraphics/src/nanonode.chart.py:/usr/libexec/netdata/python.d/nanonode.chart.py:ro
+      - ./NanoNodeGraphics/src/nanonode.conf:/usr/lib/netdata/conf.d/python.d/nanonode.conf:ro
+      - ./NanoNodeGraphics/src/nano.html:/usr/share/netdata/web/nano.html:ro
+      - ./NanoNodeGraphics/src/nano.css:/usr/share/netdata/web/nano.css:ro
     # If running on a Windows host, remove the extra_hosts setting since it's there by default
     extra_hosts:
       - "host.docker.internal:host-gateway"
