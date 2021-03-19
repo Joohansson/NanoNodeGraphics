@@ -43,12 +43,33 @@ Current version is 1.41 (2019-07-14). Check your nano.html if this one is newer,
 1. Create a new work directory for NanoNodeGraphics
 2. Clone this repo to the work directory: `git clone https://github.com/Joohansson/NanoNodeGraphics`
 3. Copy the example docker-compose from the repo to the work dir: `cp NanoNodeGraphics/docker-compose.yml.example ./docker-compose.yml
-4. Edit the hostname in the docker-compose.yml to match your server
+4. Edit the hostname in the docker-compose.yml to match your server (if using nanoNodeMonitor in docker mode, see "Special consideration" below)
 5. Change the owner of the repository to root: `chown root:root -R NanoNodeGraphics`
-6. Edit configuration with nano editor and uncomment the Docker auto detection job and change different port if needed: `sudo nano NanoNodeGraphics/src/nanonode.conf`
+6. Edit configuration with nano editor and uncomment the Docker auto detection job and change different port if needed (if using nanoNodeMonitor in docker mode, see "Special consideration" below): `sudo nano NanoNodeGraphics/src/nanonode.conf`
 7. Start the service in detached mode `docker-compose up -d`
 8. If charts are working load the simplified dashboard: http://yourIP:19999/nano.html (if no access, test locally with `curl localhost:19999/nano.html` - then check how to configure firewall below).
 9. To configure Netdata itself, you can copy the default netdata config to the configuration directory: `curl localhost:19999/netdata.conf >> ./netdataconfig/netdata/netdata.conf`. See other parts of readme for additional configuration examples.
+
+#### Special consideration if running the NanoNodeMonitor in docker mode
+Using docker v20.10.3 or above should enable the host.docker.internal and work with other containers but depending on your setup you may have to make sure the netdata container can reach the monitor container. For example if your monitor container is using a docker network called "nanonet", the following can be used.
+
+* In your docker-compose.yml. Paste the following at the end
+
+		networks:
+			default:
+				external:
+					name: nanonet
+
+* In your `NanoNodeGraphics/src/nanonode.conf` change the monitor hostname to the name of your monitor docker service name
+
+		docker:
+			name : 'local'
+			url  : 'http://monitor/api.php'
+			redirect: yes
+			timeout: 5
+			retries: 1000
+
+If you change the nanonode.conf you will have to rebuild it with `docker-compose up --build -d`
 
 ## Configuration / Troubleshooting
 ### -Nano node monitor
