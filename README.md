@@ -133,7 +133,7 @@ The default dashboard tracks 200-300 charts which will be stored in memory. See 
 If you find this helpful, any small nano donation is greatly appreciated!
 <figure>
 	<img id="qrImage" src="https://raw.githubusercontent.com/Joohansson/nanolinks/master/src/qr_new.png" alt="Nano Donation" />
-	<figcaption class="subtext">xrb_1gur37mt5cawjg5844bmpg8upo4hbgnbbuwcerdobqoeny4ewoqshowfakfo</figcaption>
+	<figcaption class="subtext">nano_1gur37mt5cawjg5844bmpg8upo4hbgnbbuwcerdobqoeny4ewoqshowfakfo</figcaption>
 </figure>
 
 ## Nano Related
