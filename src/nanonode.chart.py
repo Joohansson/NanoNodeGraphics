@@ -23,8 +23,7 @@ priority = 1000 #where it will appear on the main stat page and menu (60000 will
 
 # charts order (can be overridden if you want less charts, or different order)
 
-#ORDER = ['block_count', 'unchecked', 'peers', 'tps', 'tps_50', 'cps', 'cps_50', 'confirmations', 'weight', 'delegators', 'block_sync', 'account_balance', 'uptime']
-ORDER = ['block_count', 'unchecked', 'peers', 'tps', 'tps_50', 'confirmations', 'block_sync', 'uptime']
+ORDER = ['block_count', 'unchecked', 'peers', 'tps', 'tps_50', 'confirmations']
 
 CHARTS = {
     'block_count': {
@@ -44,36 +43,6 @@ CHARTS = {
         'options': [None, 'Peers', 'peers', 'Peers','nano.peers', 'line'],
         'lines': [
             ["peers", None, 'absolute']
-        ]
-    },
-    'weight': {
-        'options': [None, 'Voting Weight', 'nano', 'Weight','nano.weight', 'line'],
-        'lines': [
-            ["weight", None, 'absolute', 1, 1000]
-        ]
-    },
-    'delegators': {
-        'options': [None, 'Delegators', 'accounts', 'Delegators','nano.delegators', 'line'],
-        'lines': [
-            ["delegators", None, 'absolute']
-        ]
-    },
-    'block_sync': {
-        'options': [None, 'Block Sync', '%', 'Sync','nano.sync', 'line'],
-        'lines': [
-            ["block_sync", None, 'absolute', 1, 1000]
-        ]
-    },
-    'account_balance': {
-        'options': [None, 'Account Balance', 'nano', 'Balance','nano.balance', 'line'],
-        'lines': [
-            ["account_balance", None, 'absolute', 1, 1000]
-        ]
-    },
-    'uptime': {
-        'options': [None, 'Node Uptime', '%', 'Uptime','nano.uptime', 'line'],
-        'lines': [
-            ["uptime", None, 'absolute', 1, 1000]
         ]
     },
     'tps': {
